@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <style media="screen">
+    h1{
+      text-align: center;
+      font-size: 45px;
+    }
+div{
+  text-align: center;
+
+}
+a{
+  text-decoration: none;
+  color:black;
+}
+  </style>
+  <body>
+    <h1><a href="index.html">blog</a></h1>
+  <div><input id="blogname" type="text" style="width:500px;height:30px;font-size:20px;" >
+    <button id="search" style="width:40px;height:40px;">검색</button></div>
+    <p></p>
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+  <script>
+  $( "#search" ).click(function() {
+  $.ajax({
+method: "GET",
+url: "https://dapi.kakao.com/v2/search/blog",
+data: { query:$("#blogname").val() },
+headers:{Authorization: "KakaoAK 333a266105996ea2857d2ca7029e7135"},
+})
+.done(function( msg ) {
+  console.log(msg.documents[0].title);
+  var i=0;
+  var size=10;
+  while (i<size) {
+
+    $( "p" ).append( "<strong>"+"<br>"+msg.documents[i].blogname+"<br>"+"</strong>" );
+    $( "p" ).append( "<strong>"+msg.documents[i].title+"</strong>" ); 
+    $( "p" ).append( "<br>"+msg.documents[i].contents+"<br>" );
+    i++;
+  }
+
+});
+});
+
+  </script>
+  </body>
+</html>
